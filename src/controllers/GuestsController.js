@@ -26,20 +26,30 @@ class GuestsController {
   }
 
   async confirm(request, response) {
-    const { name, confirmed_guests } = request.body;
+    const { name, confirmed_guests, email } = request.body;
 
-    if (!name) {
-      throw new AppError("Nome do convidado é obrigatório!");
+    if (!name || !email) {
+      throw new AppError("Nome e e-mail são obrigatórios!");
+    }
+
+    const existingConfirmation = await knex("guests")
+      .where({ email, is_confirmed: true })
+      .first();
+
+    if (existingConfirmation) {
+      throw new AppError(
+        "Este e-mail já foi utilizado para confirmar presença."
+      );
     }
 
     const guest = await knex("guests").where({ name }).first();
 
     if (!guest) {
-      throw new AppError("Convidado não encontrado!");
+      throw new AppError("Convidado não encontrado!", 404);
     }
 
     if (guest.is_confirmed) {
-      throw new AppError("Presença já confirmada!");
+      throw new AppError("Presença já confirmada para este nome!");
     }
 
     if (confirmed_guests > guest.allowed_guests) {
@@ -51,6 +61,7 @@ class GuestsController {
     await knex("guests").where({ id: guest.id }).update({
       is_confirmed: true,
       confirmed_guests,
+      email,
     });
 
     return response

@@ -3,3 +3,7 @@ node_modules/
 
 # SQLite database
 src/database/database.db
+
+
+#ambiente
+.env

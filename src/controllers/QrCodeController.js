@@ -16,7 +16,15 @@ class QrCodeController {
       `Convidado: ${guest.name} | ID: ${guest.id} | Acompanhantes: ${guest.confirmed_guests}`
     );
 
-    return response.json({ qrCode });
+    const base64 = qrCode.split("base64")[1];
+    const imgBuffer = Buffer.from(base64, "base64");
+
+    response.writeHead(200, {
+      "Content-Type": "image/png",
+      "Content-Length": imgBuffer.length,
+    });
+
+    return response.end(imgBuffer);
   }
 }
 
