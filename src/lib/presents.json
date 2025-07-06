@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001780/1_-_capirinha_infinita_qcq7fj.png",
+    "title": "Caipirinha Infinita na Praia",
+    "description": "Sol, areia e copo sempre cheio. Garantimos a ressaca moral.",
+    "price": 15000,
+    "stock": 8
+  },
+  {
+    "id": 2,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001780/2_-_sof%C3%A1_que_faz_massagem_xoba6i.png",
+    "title": "Sofá que Faz Massagem e Serve Drinks",
+    "description": "Porque a vida de casado merece um toque de ficção científica.",
+    "price": 50000,
+    "stock": 4
+  },
+  {
+    "id": 3,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001784/3_-_aula_de_samba_para_o_cachorro_epv8u7.png",
+    "title": "Aula de Samba para o Cachorro",
+    "description": "Pra quando o noivo liberar a adoção do nosso primeiro filho e ele decidir liderar o bloco de rua da vizinhança.",
+    "price": 15000,
+    "stock": 6
+  },
+  {
+    "id": 4,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001785/4_-_sem_segunda-feira_iiasrw.png",
+    "title": "Mundinho Sem Segunda-Feira",
+    "description": "Ah, quem dera! Mas vale sonhar.",
+    "price": 60000,
+    "stock": 4
+  },
+  {
+    "id": 5,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001782/5_-_pizza_pwpcyc.png",
+    "title": "Pizza de Lombo com Cream Cheese que Nunca Acaba",
+    "description": "Sem taxa de entrega e com borda recheada — dos sonhos! Essa não pode faltar na nossa casa!",
+    "price": 20000,
+    "stock": 8
+  },
+  {
+    "id": 6,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001785/6_-_carnaval_le4d7u.png",
+    "title": "Ingresso Vitalício para Todos os Blocos de Carnaval do Brasil",
+    "description": "E tem abadá garantido, hein?",
+    "price": 75000,
+    "stock": 4
+  },
+  {
+    "id": 7,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001793/7_-_ilha_sbclvx.png",
+    "title": "Para Viajantes Sonhadores",
+    "description": "Passagem só de ida para as Ilhas Perdidas (com mapa secreto).",
+    "price": 150000,
+    "stock": 3
+  },
+  {
+    "id": 8,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001790/8_-_marte_u2xqej.png",
+    "title": "Cruzeiro com parada obrigatória em Marte.",
+    "description": "",
+    "price": 150000,
+    "stock": 3
+  },
+  {
+    "id": 9,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001792/9_-_Cartola_ojtzfg.png",
+    "title": "Viagem no tempo para o show do Cartola.",
+    "description": "",
+    "price": 90000,
+    "stock": 4
+  },
+  {
+    "id": 10,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001793/10_-_safari_yd6vrw.png",
+    "title": "Safari de unicórnios no Reino Encantado.",
+    "description": "",
+    "price": 75000,
+    "stock": 4
+  },
+  {
+    "id": 11,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001797/11_-_arco-%C3%ADris_e0nluv.png",
+    "title": "Expedição para encontrar o pote de ouro no fim do arco-íris.",
+    "description": "",
+    "price": 0,
+    "stock": 0
+  },
+  {
+    "id": 12,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001798/12_-_teletransporte_ynzksh.png",
+    "title": "Teletransporte para qualquer destino do mundo — sem fila no aeroporto.",
+    "description": "",
+    "price": 96000,
+    "stock": 5
+  },
+  {
+    "id": 13,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001804/13_-_mochil%C3%A3o_zofkof.png",
+    "title": "Mochilão com guia turístico versão IA que também tira fotos perfeitas.",
+    "description": "",
+    "price": 90000,
+    "stock": 5
+  },
+  {
+    "id": 14,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001804/14_-_torre_de_pisa_r2djb0.png",
+    "title": "Turistada sem culpa com foto clássica segurando a Torre de Pisa.",
+    "description": "",
+    "price": 0,
+    "stock": 0
+  },
+  {
+    "id": 15,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001806/15_-_open_bar_sapuca%C3%AD_zrcojm.png",
+    "title": "Para os Festeiros de Plantão",
+    "description": "Convite VIP para a Sapucaí com open bar de alegria.",
+    "price": 48000,
+    "stock": 5
+  },
+  {
+    "id": 16,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001806/16_-_cerveja_bers84.png",
+    "title": "Boteco particular com petiscos ilimitados e a cerveja sempre gelada.",
+    "description": "",
+    "price": 40000,
+    "stock": 6
+  },
+  {
+    "id": 17,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001809/17_-_feijoada_uywjid.png",
+    "title": "Feijoada sem fim com pagode ao vivo no quintal.",
+    "description": "",
+    "price": 42000,
+    "stock": 5
+  },
+  {
+    "id": 18,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001808/18_-_cama_dromhg.png",
+    "title": "Cama king size com função de abraçar em dias frios.",
+    "description": "",
+    "price": 75000,
+    "stock": 4
+  },
+  {
+    "id": 19,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001845/19_-_cafeteria_kp3a7h.png",
+    "title": "Cafeteira que adivinha seu humor e faz o café na hora exata.",
+    "description": "",
+    "price": 36000,
+    "stock": 5
+  },
+  {
+    "id": 20,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001813/20_-_vela_vs4avd.png",
+    "title": "Vela aromática com fragrância de pão de queijo quentinho.",
+    "description": "",
+    "price": 10000,
+    "stock": 6
+  },
+  {
+    "id": 21,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001819/21_-_controle_dra5y7.png",
+    "title": "Controle remoto universal para silenciar gente chata.",
+    "description": "",
+    "price": 10000,
+    "stock": 6
+  },
+  {
+    "id": 22,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001814/22_-_ressaca_o8gs3e.png",
+    "title": "Fronha antirressaca — promete acordar sem dores de cabeça!",
+    "description": "",
+    "price": 10000,
+    "stock": 6
+  },
+  {
+    "id": 23,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001818/23_-_aurora_boreal_wxlfms.png",
+    "title": "Para os Românticos Inveterados",
+    "description": "Piquenique sob a aurora boreal.",
+    "price": 90000,
+    "stock": 4
+  },
+  {
+    "id": 24,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001822/24_-_buqu%C3%AA_cqf842.png",
+    "title": "Buquê de estrelas cadentes para fazer mil desejos.",
+    "description": "",
+    "price": 30000,
+    "stock": 6
+  },
+  {
+    "id": 25,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001822/25_-_cerveja_e_roda_de_samba_dmn3nk.png",
+    "title": "Roda de samba com direito a cerveja gelada que nunca acaba.",
+    "description": "",
+    "price": 50000,
+    "stock": 5
+  },
+  {
+    "id": 26,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001827/26_-_abra%C3%A7o_de_v%C3%B3_howqhq.png",
+    "title": "Pijama que dá abraço de vó na hora de dormir.",
+    "description": "",
+    "price": 20000,
+    "stock": 6
+  },
+  {
+    "id": 27,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001826/27_-_cafun%C3%A9_rndow0.png",
+    "title": "Cafuné em loop infinito, sem reclamar da mão cansada.",
+    "description": "",
+    "price": 20000,
+    "stock": 6
+  },
+  {
+    "id": 28,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001830/28_-_netflix_qgoyub.png",
+    "title": "Controle de “quem escolhe o filme” no streaming.",
+    "description": "",
+    "price": 20000,
+    "stock": 6
+  },
+  {
+    "id": 29,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001834/29_-_m%C3%A1quina_de_dobrar_roupa_xijpvo.png",
+    "title": "Máquina que dobra e guarda as roupas sozinha.",
+    "description": "",
+    "price": 120000,
+    "stock": 4
+  },
+  {
+    "id": 30,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001833/30_-_massagem_gimq9b.png",
+    "title": "Massagem relaxante vitalícia",
+    "description": "",
+    "price": 150000,
+    "stock": 4
+  },
+  {
+    "id": 31,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001838/31_-_presentes_sjr1gb.png",
+    "title": "Agenda eletrônica que lembra as datas especiais (e não deixa esquecer o presente!)",
+    "description": "",
+    "price": 20000,
+    "stock": 6
+  },
+  {
+    "id": 32,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001838/32_-_carregador_cljeej.png",
+    "title": "Carregador de celular que também busca o celular perdido pela casa.",
+    "price": 20000,
+    "stock": 6
+  },
+  {
+    "id": 33,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001842/33_-_geladeira_ryqec6.png",
+    "title": "Geladeira que reabastece sozinha quando percebe a cerveja acabando.",
+    "price": 80000,
+    "stock": 5
+  },
+  {
+    "id": 34,
+    "src": "https://res.cloudinary.com/dfl846yul/image/upload/v1750001835/34_-_travesseiro_antirronco_y1k8hd.png",
+    "title": "Almofada antirronco com função de rotação automática.",
+    "description": "",
+    "price": 20000,
+    "stock": 6
+  }
+]

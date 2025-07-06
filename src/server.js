@@ -1,16 +1,20 @@
 require("express-async-errors");
 require("dotenv").config();
-const AppError = require("./utils/AppError");
 
 const express = require("express");
 const cors = require("cors");
+const { errors: celebrateErrors } = require("celebrate"); // ← importe o celebrateErrors
 const routes = require("./routes");
+const AppError = require("./utils/AppError");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
 app.use(routes);
+
+app.use(celebrateErrors());
 
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
@@ -20,7 +24,7 @@ app.use((error, request, response, next) => {
     });
   }
 
-  console.log(error);
+  console.error(error);
 
   return response.status(500).json({
     status: "error",

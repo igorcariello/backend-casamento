@@ -1,13 +1,13 @@
+// utils/generateQRCode.js
 const QRCode = require("qrcode");
 const AppError = require("./AppError");
 
-async function generateQRCode(data) {
+async function generateQRCodeBuffer(data) {
   try {
-    const qrCodeDataURL = await QRCode.toDataURL(data);
-    return qrCodeDataURL;
-  } catch (error) {
+    return await QRCode.toBuffer(data, { type: "png" });
+  } catch (err) {
     throw new AppError("Erro ao gerar QRCode", 500);
   }
 }
 
-module.exports = generateQRCode;
+module.exports = generateQRCodeBuffer;

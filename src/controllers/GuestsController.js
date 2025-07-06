@@ -1,6 +1,7 @@
 const knex = require("../database/connection");
 
 const AppError = require("../utils/AppError");
+const generateQRCodeBuffer = require("../utils/generateQRCode");
 
 class GuestsController {
   async create(request, response) {
@@ -25,61 +26,142 @@ class GuestsController {
     return response.json(guests);
   }
 
-  async confirm(request, response) {
-    const { name, confirmed_guests, email } = request.body;
+  async update(request, response) {
+    const { id } = request.params;
+    const { name, email, allowed_guests, confirmed_guests, is_confirmed } =
+      request.body;
 
-    if (!name || !email) {
-      throw new AppError("Nome e e-mail são obrigatórios!");
-    }
-
-    const existingConfirmation = await knex("guests")
-      .where({ email, is_confirmed: true })
-      .first();
-
-    if (existingConfirmation) {
-      throw new AppError(
-        "Este e-mail já foi utilizado para confirmar presença."
-      );
-    }
-
-    const guest = await knex("guests").where({ name }).first();
+    const guest = await knex("guests").where({ id }).first();
 
     if (!guest) {
       throw new AppError("Convidado não encontrado!", 404);
     }
 
-    if (guest.is_confirmed) {
-      throw new AppError("Presença já confirmada para este nome!");
-    }
+    const newAllowedGuests = allowed_guests ?? guest.allowed_guests;
+    const newConfirmedGuests = confirmed_guests ?? guest.confirmed_guests;
 
-    if (confirmed_guests > guest.allowed_guests) {
+    if (newConfirmedGuests > newAllowedGuests) {
       throw new AppError(
-        `Número de convidados excede o permitido! (máximo de ${guest.allowed_guests})`
+        `Número de acompanhantes confirmados (${newConfirmedGuests}) não pode ser maior que o permitido (${newAllowedGuests}).`
       );
     }
 
-    await knex("guests").where({ id: guest.id }).update({
-      is_confirmed: true,
-      confirmed_guests,
-      email,
+    await knex("guests")
+      .where({ id })
+      .update({
+        name: name ?? guest.name,
+        email: email ?? guest.email,
+        allowed_guests: newAllowedGuests,
+        confirmed_guests: newConfirmedGuests,
+        is_confirmed: is_confirmed ?? guest.is_confirmed,
+      });
+
+    return response
+      .status(200)
+      .json({ message: "Convidado atualizado com sucesso!" });
+  }
+
+  async unconfirm(request, response) {
+    const { id } = request.params;
+
+    const guest = await knex("guests").where({ id }).first();
+
+    if (!guest) {
+      return response
+        .status(404)
+        .json({ message: "Convidado não encontrado." });
+    }
+
+    if (!guest.is_confirmed) {
+      return response
+        .status(404)
+        .json({ message: "Convidado já não está confirmado." });
+    }
+
+    await knex("guests").where({ id }).update({
+      is_confirmed: false,
+      confirmed_guests: 0,
+      email: null,
     });
 
     return response
       .status(200)
-      .json({ message: "Presença confirmada com sucesso!" });
+      .json({ message: "Convidado desconfirmado com sucesso!" });
   }
 
-  async listConfirmed(request, response) {
-    const guests = await knex("guests")
-      .where("is_confirmed", true)
-      .select("name", "confirmed_guests");
+  async show(request, response) {
+    const { id } = request.params;
 
-    const totalPeople = guests.reduce(
-      (sum, guest) => sum + guest.confirmed_guests + 1,
-      0
-    );
+    const guest = await knex("guests").where({ id }).first();
 
-    return response.json({ totalPeople, guests });
+    if (!guest) {
+      return response.status(404).json({ message: "Convidado não encontrado" });
+    }
+
+    return response.json(guest);
+  }
+
+  async delete(request, response) {
+    const { id } = request.params;
+
+    if (!id) {
+      return response.status(400).json({ message: "ID não fornecido." });
+    }
+
+    const guest = await knex("guests").where({ id }).first();
+
+    if (!guest) {
+      return response
+        .status(404)
+        .json({ message: "Convidado não encontrado!" });
+    }
+
+    await knex("guests").where({ id }).delete();
+
+    return response
+      .status(200)
+      .json({ message: "Convidado excluído com sucesso!" });
+  }
+
+  async search(request, response) {
+    const { nameSearch } = request.query;
+
+    if (!nameSearch) {
+      return response
+        .status(400)
+        .json({ error: "Necessário ter umtermo de busca" });
+    }
+
+    try {
+      const guests = await knex("guests")
+        .where("name", "like", `%${nameSearch}%`)
+        .select("id", "name");
+
+      response.json(guests);
+    } catch (error) {
+      response.status(500).json({ error: "Erro ao buscar convidados" });
+    }
+  }
+
+  async getQrCode(request, response) {
+    const { id } = request.params;
+
+    const guest = await knex("guests")
+      .select("id", "name", "ticket_image")
+      .where({ id })
+      .first();
+
+    if (!guest) {
+      return response.status(404).json({ message: "Convidado não encontrado" });
+    }
+
+    if (!guest.ticket_image) {
+      return response
+        .status(404)
+        .json({ message: "Ticket não encontrado para este convidado" });
+    }
+
+    return response.json(guest);
   }
 }
 
