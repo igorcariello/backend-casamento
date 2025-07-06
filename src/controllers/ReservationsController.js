@@ -23,11 +23,13 @@ class ReservationsController {
 
     await knex("products").where({ id: product_id }).decrement("stock", 1);
 
-    const [reservation_id] = await knex("reservations").insert({
-      product_id,
-      reserved_at,
-      confirmed: 0,
-    });
+    const [reservation_id] = await knex("reservations")
+      .insert({
+        product_id,
+        reserved_at,
+        confirmed: 0,
+      })
+      .returning("id");
 
     return response.status(201).json({ reservation_id });
   }
