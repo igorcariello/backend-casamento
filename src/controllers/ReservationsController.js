@@ -19,6 +19,7 @@ class ReservationsController {
     }
 
     const now = new Date();
+    // Formata a data para 'YYYY-MM-DD HH:MM:SS' para compatibilidade com PostgreSQL
     const reserved_at = now.toISOString().slice(0, 19).replace("T", " ");
 
     await knex("products").where({ id: product_id }).decrement("stock", 1);
@@ -27,9 +28,9 @@ class ReservationsController {
       .insert({
         product_id,
         reserved_at,
-        confirmed: 0,
+        confirmed: false, // Usar booleanos diretamente se a coluna for BOOLEAN no PG
       })
-      .returning("id");
+      .returning("id"); // Essencial para PostgreSQL retornar o ID
 
     return response.status(201).json({ reservation_id });
   }
@@ -43,7 +44,7 @@ class ReservationsController {
         .replace("T", " ");
 
       const expiredReservations = await knex("reservations")
-        .where("confirmed", 0)
+        .where("confirmed", false)
         .andWhere("reserved_at", "<", formattedExpiration)
         .select("id", "product_id");
 
@@ -58,7 +59,7 @@ class ReservationsController {
         message: `${expiredReservations.length} reservas expiradas limpas.`,
       });
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao limpar reservas:", error);
       return response.status(500).json({ error: "Erro ao limpar reservas." });
     }
   }
@@ -73,15 +74,17 @@ class ReservationsController {
         return response.status(404).json({ error: "Reserva não encontrada." });
       }
 
-      if (reservation.confirmed) {
-        return response.status(400).json({ error: "Reserva já confirmada." });
+      if (reservation.confirmed === true) {
+        return response
+          .status(400)
+          .json({ error: "Reserva já está confirmada." });
       }
 
       await knex("reservations").where({ id }).update({ confirmed: true });
 
       return response.json({ message: "Reserva confirmada com sucesso." });
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao confirmar reserva:", error);
       return response.status(500).json({ error: "Erro ao confirmar reserva." });
     }
   }
@@ -99,41 +102,14 @@ class ReservationsController {
           "p.price",
           "p.stock"
         )
-        .where("r.confirmed", false);
+        .where("r.confirmed", false); // Usar false para booleanos no PG
 
       return response.json(reservations);
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao buscar reservas pendentes:", error);
       return response
         .status(500)
         .json({ error: "Erro ao buscar reservas pendentes." });
-    }
-  }
-
-  async confirm(request, response) {
-    const { id } = request.params;
-
-    try {
-      const reservation = await knex("reservations").where({ id }).first();
-
-      if (!reservation) {
-        return response.status(404).json({ error: "Reserva não encontrada." });
-      }
-
-      if (reservation.confirmed) {
-        return response
-          .status(400)
-          .json({ error: "Reserva já está confirmada." });
-      }
-
-      await knex("reservations").where({ id }).update({
-        confirmed: true,
-      });
-
-      return response.json({ message: "Reserva confirmada com sucesso." });
-    } catch (error) {
-      console.error(error);
-      return response.status(500).json({ error: "Erro ao confirmar reserva." });
     }
   }
 
@@ -152,7 +128,7 @@ class ReservationsController {
 
       return response.json(reservations);
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao buscar reservas:", error);
       return response.status(500).json({ error: "Erro ao buscar reservas." });
     }
   }
@@ -177,7 +153,7 @@ class ReservationsController {
         message: "Reserva excluída e produto devolvido ao estoque com sucesso.",
       });
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao excluir reserva:", error);
       return response.status(500).json({ error: "Erro ao excluir reserva." });
     }
   }

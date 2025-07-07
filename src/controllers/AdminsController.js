@@ -26,15 +26,17 @@ class AdminController {
 
     const hashedPassword = await hash(password, 8);
 
-    await knex("admins").insert({
-      name,
-      email,
-      password_hash: hashedPassword,
-    });
+    const [admin_id] = await knex("admins")
+      .insert({
+        name,
+        email,
+        password_hash: hashedPassword,
+      })
+      .returning("id");
 
     return response
       .status(201)
-      .json({ message: "Administrador criado com sucesso!" });
+      .json({ message: "Administrador criado com sucesso!", admin_id });
   }
 
   async signIn(request, response) {

@@ -38,12 +38,6 @@ class ConfirmationController {
       );
     }
 
-    await knex("guests").where({ id: guest.id }).update({
-      is_confirmed: true,
-      confirmed_guests,
-      email,
-    });
-
     const qrData = `Convidado: ${guest.name} | ID: ${guest.id} | Acompanhantes: ${confirmed_guests}`;
     const ticketImage = await generateTicketImage({
       name: guest.name,

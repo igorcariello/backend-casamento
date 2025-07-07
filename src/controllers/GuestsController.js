@@ -11,18 +11,20 @@ class GuestsController {
       throw new AppError("O nome do convidado é obrigatório!");
     }
 
-    await knex("guests").insert({
-      name,
-      allowed_guests: allowed_guests ?? 0,
-    });
+    const [guest_id] = await knex("guests")
+      .insert({
+        name,
+        allowed_guests: allowed_guests ?? 0,
+      })
+      .returning("id");
 
     return response
       .status(201)
-      .json({ message: "Convidado cadastrado com sucesso" });
+      .json({ message: "Convidado cadastrado com sucesso", guest_id });
   }
 
   async index(request, response) {
-    const guests = await knex("guests").select("*");
+    const guests = await knex("guests").select("*").orderBy("id", "asc");
     return response.json(guests);
   }
 
@@ -46,21 +48,27 @@ class GuestsController {
       );
     }
 
-    await knex("guests")
-      .where({ id })
-      .update({
-        name: name ?? guest.name,
-        email: email ?? guest.email,
-        allowed_guests: newAllowedGuests,
-        confirmed_guests: newConfirmedGuests,
-        is_confirmed: is_confirmed ?? guest.is_confirmed,
-      });
+    const fieldsToUpdate = {
+      name: name ?? guest.name,
+      allowed_guests: newAllowedGuests,
+      confirmed_guests: newConfirmedGuests,
+      is_confirmed: is_confirmed ?? guest.is_confirmed,
+    };
+
+    if (email !== undefined && email !== null && email !== "") {
+      fieldsToUpdate.email = email;
+    } else if (email === "") {
+      fieldsToUpdate.email = null;
+    } else {
+      fieldsToUpdate.email = guest.email;
+    }
+
+    await knex("guests").where({ id }).update(fieldsToUpdate);
 
     return response
       .status(200)
       .json({ message: "Convidado atualizado com sucesso!" });
   }
-
   async unconfirm(request, response) {
     const { id } = request.params;
 
@@ -134,7 +142,7 @@ class GuestsController {
 
     try {
       const guests = await knex("guests")
-        .where("name", "like", `%${nameSearch}%`)
+        .where("name", "ilike", `%${nameSearch}%`)
         .select("id", "name");
 
       response.json(guests);

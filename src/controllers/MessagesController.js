@@ -15,9 +15,16 @@ class MessagesController {
       content,
     });
 
+    const [message_id] = await knex("messages")
+      .insert({
+        sender,
+        content,
+      })
+      .returning("id");
+
     return response
       .status(201)
-      .json({ message: "Recado enviado com sucesso!" });
+      .json({ message: "Recado enviado com sucesso!", message_id });
   }
 
   async index(request, response) {

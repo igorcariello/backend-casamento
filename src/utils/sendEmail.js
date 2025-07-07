@@ -1,32 +1,39 @@
-const AppError = require("../utils/AppError");
-
-const resend = require("../services/resend");
+const nodemailer = require("nodemailer");
 
 async function sendEmail({ to, subject, html, imageBase64 }) {
-  if (typeof to !== "string") {
-    throw new AppError('O Campo "to" precisa ser uma string', 400);
-  }
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const mailOptions = {
+    from: `"Beatriz e Iago" <${process.env.GMAIL_USER}>`,
+    to,
+    subject,
+    html,
+    attachments: [
+      {
+        filename: "ticket.png",
+        content: imageBase64.split("base64,")[1],
+        encoding: "base64",
+        cid: "ticketimage123",
+      },
+    ],
+  };
 
   try {
-    const response = await resend.emails.send({
-      from: "Beatriz e Iago <onboarding@resend.dev>",
-      to,
-      subject,
-      html,
-      attachments: [
-        {
-          filename: "ticket.png",
-          content: imageBase64.split("base64,")[1],
-          contentType: "image/png",
-          cid: "ticketimage123",
-        },
-      ],
-    });
-
-    console.log("E-mail enviado:", response);
-    return response;
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email enviado:", info.response);
+    return info;
   } catch (error) {
-    throw new AppError("Erro ao enviar o e-mail", 500);
+    console.error("Erro ao enviar o e-mail:", error);
+    throw error;
   }
 }
 

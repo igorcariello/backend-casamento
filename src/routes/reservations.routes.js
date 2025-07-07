@@ -16,7 +16,6 @@ reservationsRoutes.post(
   reservationsController.confirmReservation
 );
 reservationsRoutes.get("/pending", reservationsController.listPending);
-reservationsRoutes.patch("/confirm/:id", reservationsController.confirm);
 reservationsRoutes.get("/", reservationsController.index);
 reservationsRoutes.delete("/:id", reservationsController.delete);
 module.exports = reservationsRoutes;
