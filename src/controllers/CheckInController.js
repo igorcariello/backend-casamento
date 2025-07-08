@@ -1,5 +1,4 @@
 const knex = require("../database/connection");
-const AppError = require("../utils/AppError");
 
 class CheckInController {
   async handleCheckIn(req, res) {
@@ -13,8 +12,7 @@ class CheckInController {
         .json({ success: false, message: "Código ausente." });
     }
 
-    const id = Number(code.trim());
-
+    const id = parseInt(code.trim(), 10);
     if (isNaN(id)) {
       return res
         .status(400)
@@ -22,26 +20,28 @@ class CheckInController {
     }
 
     const guest = await knex("guests").where({ id }).first();
-
-    if (!guest)
+    if (!guest) {
       return res
         .status(404)
         .json({ success: false, message: "Convidado não encontrado." });
+    }
 
-    if (!guest.is_confirmed)
+    if (!guest.is_confirmed) {
       return res
         .status(400)
         .json({
           success: false,
           message: `${guest.name} não confirmou presença.`,
         });
+    }
 
-    if (guest.has_arrived)
+    if (guest.has_arrived) {
       return res.json({
         success: true,
         alreadyCheckedIn: true,
-        message: `${guest.name} já entrou.`,
+        message: `${guest.name} já realizou check-in.`,
       });
+    }
 
     await knex("guests")
       .where({ id })
@@ -49,7 +49,7 @@ class CheckInController {
 
     return res.json({
       success: true,
-      message: `Entrada liberada para ${guest.name}!`,
+      message: `✅ Check-in realizado para ${guest.name}!`,
       guest: { id, name: guest.name },
     });
   }
