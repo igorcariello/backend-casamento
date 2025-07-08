@@ -4,7 +4,7 @@ class CheckInController {
   async handleCheckIn(req, res) {
     const { code } = req.body;
 
-    console.log("Código recebido:", code);
+    console.log("Código recebido do QRCode:", code);
 
     if (!code) {
       return res
@@ -12,12 +12,18 @@ class CheckInController {
         .json({ success: false, message: "Código ausente." });
     }
 
-    const id = parseInt(code.trim(), 10);
-    if (isNaN(id)) {
+    // 🔥 EXTRAI O ID DO TEXTO
+    const match = code.match(/ID:\s*(\d+)/i);
+    if (!match) {
       return res
         .status(400)
-        .json({ success: false, message: "Código inválido. Deve ser número." });
+        .json({
+          success: false,
+          message: "Código inválido. ID não encontrado no QRCode.",
+        });
     }
+
+    const id = Number(match[1]);
 
     const guest = await knex("guests").where({ id }).first();
     if (!guest) {
