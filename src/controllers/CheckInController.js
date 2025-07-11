@@ -12,15 +12,12 @@ class CheckInController {
         .json({ success: false, message: "Código ausente." });
     }
 
-    // 🔥 EXTRAI O ID DO TEXTO
     const match = code.match(/ID:\s*(\d+)/i);
     if (!match) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Código inválido. ID não encontrado no QRCode.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Código inválido. ID não encontrado no QRCode.",
+      });
     }
 
     const id = Number(match[1]);
@@ -33,12 +30,10 @@ class CheckInController {
     }
 
     if (!guest.is_confirmed) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: `${guest.name} não confirmou presença.`,
-        });
+      return res.status(400).json({
+        success: false,
+        message: `${guest.name} não confirmou presença.`,
+      });
     }
 
     if (guest.has_arrived) {
