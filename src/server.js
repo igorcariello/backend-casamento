@@ -6,13 +6,24 @@ checkEnvVariables();
 
 const express = require("express");
 const cors = require("cors");
-const { errors: celebrateErrors } = require("celebrate"); // ← importe o celebrateErrors
+const { errors: celebrateErrors } = require("celebrate");
 const routes = require("./routes");
 const AppError = require("./utils/AppError");
 
 const app = express();
 
-app.use(cors());
+// em desenvolvimento
+//app.use(cors({
+//  origin: ["http://localhost:5173", "http://localhost:3000"],
+//}));
+
+app.use(
+  cors({
+    origin: "https://beatrizeiago.netlify.app/",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use(routes);
