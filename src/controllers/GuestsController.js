@@ -44,7 +44,7 @@ class GuestsController {
 
     if (newConfirmedGuests > newAllowedGuests) {
       throw new AppError(
-        `Número de acompanhantes confirmados (${newConfirmedGuests}) não pode ser maior que o permitido (${newAllowedGuests}).`
+        `Número de acompanhantes confirmados (${newConfirmedGuests}) excede o limite permitido de ${newAllowedGuests}. Atualize o número de convidados permitidos ou reduza os confirmados.`
       );
     }
 

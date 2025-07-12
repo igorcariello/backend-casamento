@@ -1,6 +1,9 @@
 require("express-async-errors");
 require("dotenv").config();
 
+const checkEnvVariables = require("./src/configs/envValidation");
+checkEnvVariables();
+
 const express = require("express");
 const cors = require("cors");
 const { errors: celebrateErrors } = require("celebrate"); // ← importe o celebrateErrors
