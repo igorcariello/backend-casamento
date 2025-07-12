@@ -22,7 +22,7 @@ guestsRoutes.patch(
 );
 guestsRoutes.get("/:id", ensureAuthenticatedAdmin, guestsController.show);
 guestsRoutes.delete("/:id", ensureAuthenticatedAdmin, guestsController.delete);
-guestsRoutes.get("/", guestsController.search);
+guestsRoutes.get("/search", guestsController.search);
 
 //ROTAS RELACIONADAS COM QRCODE!!!
 guestsRoutes.get("/:id/qrcode", qrCodeController.show);

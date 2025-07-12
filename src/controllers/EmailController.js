@@ -24,6 +24,7 @@ class EmailController {
           <h1 style="color: #6B46C1;">Confirmação de Presença</h1>
           <p>Olá, <strong>${guest.name}</strong>,</p>
           <p>Seu cartão de confirmação está logo abaixo.</p>
+          <p>Caso prefira, pode fazer o download do cartão de confirmação que está em anexo.</p>
           <img 
             src="cid:ticketimage123" 
             alt="Cartão de Confirmação" 
