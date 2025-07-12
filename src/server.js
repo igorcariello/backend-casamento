@@ -17,13 +17,29 @@ const app = express();
 //  origin: ["http://localhost:5173", "http://localhost:3000"],
 //}));
 
+const allowedOrigins = [
+  "https://beatrizeiago.netlify.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
-    origin: "https://beatrizeiago.netlify.app/",
+    origin: function (origin, callback) {
+      // Permite requests sem origem (ex: Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = "O CORS não permite acesso deste domínio.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 app.use(routes);
