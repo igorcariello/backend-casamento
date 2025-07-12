@@ -53,15 +53,8 @@ class GuestsController {
       allowed_guests: newAllowedGuests,
       confirmed_guests: newConfirmedGuests,
       is_confirmed: is_confirmed ?? guest.is_confirmed,
+      email: email === "" ? null : email, // <-- linha ajustada aqui
     };
-
-    if (email !== undefined && email !== null && email !== "") {
-      fieldsToUpdate.email = email;
-    } else if (email === "") {
-      fieldsToUpdate.email = null;
-    } else {
-      fieldsToUpdate.email = guest.email;
-    }
 
     await knex("guests").where({ id }).update(fieldsToUpdate);
 
@@ -69,6 +62,7 @@ class GuestsController {
       .status(200)
       .json({ message: "Convidado atualizado com sucesso!" });
   }
+
   async unconfirm(request, response) {
     const { id } = request.params;
 

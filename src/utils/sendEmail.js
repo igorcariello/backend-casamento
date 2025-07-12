@@ -13,7 +13,7 @@ async function sendEmail({ to, subject, html, imageBase64 }) {
   });
 
   const mailOptions = {
-    from: `"Beatriz e Iago" <${process.env.GMAIL_USER}>`,
+    from: `"Beatriz e Iago" <${process.env.MAIL_USER}>`,
     to,
     subject,
     html,
