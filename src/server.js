@@ -1,7 +1,7 @@
 require("express-async-errors");
 require("dotenv").config();
 
-const checkEnvVariables = require("./src/configs/checkEnVariables");
+const checkEnvVariables = require("./src/configs/checkEnvVariables");
 checkEnvVariables();
 
 const express = require("express");
