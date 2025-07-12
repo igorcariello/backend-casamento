@@ -12,6 +12,8 @@ const guestsController = new GuestsController();
 const qrCodeController = new QrCodeController();
 const emailController = new EmailController();
 
+guestsRoutes.get("/search", guestsController.search);
+
 guestsRoutes.post("/", ensureAuthenticatedAdmin, guestsController.create);
 guestsRoutes.get("/", ensureAuthenticatedAdmin, guestsController.index);
 guestsRoutes.put("/:id", ensureAuthenticatedAdmin, guestsController.update);
@@ -22,7 +24,6 @@ guestsRoutes.patch(
 );
 guestsRoutes.get("/:id", ensureAuthenticatedAdmin, guestsController.show);
 guestsRoutes.delete("/:id", ensureAuthenticatedAdmin, guestsController.delete);
-guestsRoutes.get("/search", guestsController.search);
 
 //ROTAS RELACIONADAS COM QRCODE!!!
 guestsRoutes.get("/:id/qrcode", qrCodeController.show);
