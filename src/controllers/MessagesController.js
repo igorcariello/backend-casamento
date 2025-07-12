@@ -10,11 +10,6 @@ class MessagesController {
       throw new AppError("Nome e recado são obrigatórios!");
     }
 
-    await knex("messages").insert({
-      sender,
-      content,
-    });
-
     const [message_id] = await knex("messages")
       .insert({
         sender,
