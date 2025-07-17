@@ -6,15 +6,16 @@ const reservationsRoutes = Router();
 
 const reservationsController = new ReservationsController();
 
+reservationsRoutes.patch(
+  "/confirm/:id",
+  reservationsController.confirmReservation
+);
 reservationsRoutes.post("/", reservationsController.create);
 reservationsRoutes.get(
   "/cleanup",
   reservationsController.cleanExpiredReservations
 );
-reservationsRoutes.post(
-  "/:id/confirm",
-  reservationsController.confirmReservation
-);
+
 reservationsRoutes.get("/pending", reservationsController.listPending);
 reservationsRoutes.get("/", reservationsController.index);
 reservationsRoutes.delete("/:id", reservationsController.delete);

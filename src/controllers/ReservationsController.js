@@ -28,9 +28,9 @@ class ReservationsController {
       .insert({
         product_id,
         reserved_at,
-        confirmed: false, // Usar booleanos diretamente se a coluna for BOOLEAN no PG
+        confirmed: false,
       })
-      .returning("id"); // Essencial para PostgreSQL retornar o ID
+      .returning("id");
 
     return response.status(201).json({ reservation_id });
   }
@@ -102,7 +102,7 @@ class ReservationsController {
           "p.price",
           "p.stock"
         )
-        .where("r.confirmed", false); // Usar false para booleanos no PG
+        .where("r.confirmed", false);
 
       return response.json(reservations);
     } catch (error) {
